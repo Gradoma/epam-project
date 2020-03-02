@@ -67,53 +67,5 @@ public class Main {
 //        result = controller.executeTask(testRequest);
 //        System.out.println(result);
         // DONT DELETE !!!
-
-
-//        try {
-
-
-//            DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-//            Date date = new Date();
-//            Date parse = new SimpleDateFormat("dd-MM-yyyy").parse(dateFormat.format(date));
-
-//            FileUserDAO fileUserDAO = new FileUserDAO();
-//            User newUser = new User("bro", "123456");
-//            fileUserDAO.saveUser(newUser);
-//
-//        } catch (Exception e){
-//            e.printStackTrace();
-//        }
-//
-//            User gradoma = new User("gradoma", "051863");
-//            User dad = new User("dad","15651");
-//            User mom = new User("mom", "15651");
-//
-//
-//            fileUserDAO.signIn("gradoma", "051863");
-//
-//
-//            fileRecordDAO.addRecord(gradoma, +10000);
-//
-//
-//            fileRecordDAO.addRecord(gradoma,-500);
-//            fileRecordDAO.getRecords();
-//            fileRecordDAO.addRecord(dad, +50000);
-//            fileRecordDAO.getRecords();
-//            fileRecordDAO.addRecord(gradoma, +700);
-//            fileRecordDAO.addRecord(mom, +500);
-//            fileRecordDAO.addRecord(dad, +540);
-//            fileRecordDAO.addRecord(mom, 1000);
-//            fileRecordDAO.addRecord(mom, -450);
-
-//            List<Record> recordList= fileRecordDAO.getRecords(gradoma);
-//            for (int i=0; i<recordList.size(); i++) {
-//                System.out.print(recordList.get(i).getUserLogin() + " : ");
-//                System.out.print(recordList.get(i).getOperationValue());
-//                System.out.println();
-//            }
-
-//        } catch (DAOException e){
-//            e.printStackTrace();
-//        }
     }
 }

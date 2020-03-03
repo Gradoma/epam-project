@@ -18,8 +18,8 @@ public class GetBalance implements Command {
         ServiceFactory serviceFactory = ServiceFactory.getInstance();
         RecordService recordService = serviceFactory.getRecordService();
         try {
-            Double balance = recordService.getBalance();
-            response = balance.toString();
+            double balance = recordService.getBalance();
+            response = "Your actual balance: " + balance;
         } catch (ServiceException servEx){
             response = "Error during get balance procedure: " + servEx.getMessage();
         }

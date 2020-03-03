@@ -14,18 +14,22 @@ public class SignIn implements Command {
         }
         String response;
 
-        String[] commandDetails = request.split(" ");
-        String login = commandDetails[0];
-        String password = commandDetails[1];
+        if(request.contains(" ")){
+            String[] commandDetails = request.split(" ");
+            String login = commandDetails[0];
+            String password = commandDetails[1];
 
-        ServiceFactory serviceFactory = ServiceFactory.getInstance();
-        UserService userService = serviceFactory.getUserService();
-        try {
-            userService.signIn(login, password);
-            response = "Welcome!";
-        } catch (ServiceException serEx){
-            // write to log
-            response = "Error during login procedure.";
+            ServiceFactory serviceFactory = ServiceFactory.getInstance();
+            UserService userService = serviceFactory.getUserService();
+            try {
+                userService.signIn(login, password);
+                response = "Welcome!";
+            } catch (ServiceException servEx){
+                // write to log
+                response = "Error during login procedure: " + servEx;
+            }
+        } else {
+            response = "Incorrect data enter.";
         }
         return response;
     }

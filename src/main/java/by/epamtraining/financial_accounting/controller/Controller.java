@@ -12,6 +12,9 @@ public class Controller {
         String commandName;
         Command executionCommand;
 
+        if(request == null){
+            return "Request can't be null";
+        }
         if(request.contains(" ")){
             commandName = request.substring(0, request.indexOf(paramDelimeter));
         } else {
@@ -21,8 +24,9 @@ public class Controller {
         executionCommand = commandProvider.getCommand(commandName);
 //        System.out.println(executionCommand == null);                                               // testing
 
-        String commandParameters = request.substring(request.indexOf(paramDelimeter)+1);
-//        System.out.println("comand param parsing result = " + commandParameters);                   // testing
+        String commandParameters = request.substring(request.indexOf(paramDelimeter)+1).trim();
+//        System.out.println("comand param parsing result = " + commandParameters + ".");                   // testing
+//        System.out.println("comand param trimmed = " + commandParameters.trim() + ".");                    // testing
 //        String response = executionCommand.execute(commandParameters);
 //
 //        return response;

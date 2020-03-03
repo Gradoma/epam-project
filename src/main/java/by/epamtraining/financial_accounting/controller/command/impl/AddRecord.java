@@ -39,23 +39,19 @@ public class AddRecord implements Command {
 //        System.out.println("value string = " + valueString);                         // testing
 
         try {
-            Date date;
-            if(dateString.length() > 0){
-                date = DATE_FORMAT.parse(dateString);
-            } else {
-                date = new Date();
-            }
-            double value = Double.valueOf(valueString);
-            Record newRecord = new Record(value, date);
+//            Date date;
+//            if(dateString.length() > 0){
+//                date = DATE_FORMAT.parse(dateString);
+//            } else {
+//                date = new Date();
+//            }
+//            double value = Double.valueOf(valueString);
 
             ServiceFactory serviceFactory = ServiceFactory.getInstance();
             RecordService recordService = serviceFactory.getRecordService();
-            recordService.addRecord(newRecord);
+            recordService.addRecord(valueString, dateString);
 
             response = "Success! New record was added!";
-        } catch (ParseException ex){
-            // write log
-            response = "Incorrect format.";
         } catch (ServiceException servEx){
             // write log
             response = "Error during add record procedure: " + servEx.getMessage();

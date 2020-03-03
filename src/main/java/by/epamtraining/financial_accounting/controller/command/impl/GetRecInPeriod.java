@@ -33,10 +33,11 @@ public class GetRecInPeriod implements Command {
 
                 ServiceFactory serviceFactory = ServiceFactory.getInstance();
                 RecordService recordService = serviceFactory.getRecordService();
-                List<Record> recordList = recordService.getUserRecords();
-
-                for(Record rec : recordList){
-                    if(rec.getDate().after(date1) && rec.getDate().before(date2)){
+                List<Record> recordList = recordService.getUserRecordsInPeriod(date1, date2);
+                if(recordList.size() == 0){
+                    response = "No records during specified period.";
+                } else {
+                    for(Record rec : recordList){
                         String valueSign = "";
                         if(rec.getOperationValue() > 0){
                             valueSign = "+";

@@ -19,6 +19,9 @@ public class FileUserDAO implements UserDAO {
 
 
     public User findByUserName(String username) throws DAOException {
+        if(username == null || username.isEmpty()){
+            throw new DAOException();
+        }
 //        Date parse = new SimpleDateFormat("dd-MM-yyyy").parse("11-08-1997");
         //Double.valueOf("11.0")
         HashMap<String, String> usersMap = pullUsersMap(userFilePath);

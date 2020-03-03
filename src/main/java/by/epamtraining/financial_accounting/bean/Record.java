@@ -8,18 +8,17 @@ public class Record implements Serializable {
     private double operationValue;
     private Date date;
     private SpendingType spendingType;
-    private String description = "...";
+    private String description;
 
     public Record() {
     }
 
-    public Record(User user, double operationValue, Date date) {
-        this(user.getLogin(), operationValue, date, SpendingType.OTHER, "");
-
+    public Record(String userLogin, double operationValue, Date date) {
+        this(userLogin, operationValue, date, SpendingType.OTHER, "...");
     }
 
-    public Record(double operationValue, User user) {
-        this(user, operationValue, new Date());
+    public Record(String userLogin, double operationValue) {
+        this(userLogin, operationValue, new Date());
     }
 
     public Record(String userLogin, double operationValue, Date date, SpendingType spendingType, String description) {

@@ -24,13 +24,17 @@ public class GetRecords implements Command {
         RecordService recordService = serviceFactory.getRecordService();
         try {
             List<Record> recordList = recordService.getUserRecords();
-            for(Record rec : recordList){
-                String valueSign = "";
-                if(rec.getOperationValue() > 0){
-                    valueSign = "+";
+            if(recordList.size() > 0){
+                for(Record rec : recordList){
+                    String valueSign = "";
+                    if(rec.getOperationValue() > 0){
+                        valueSign = "+";
+                    }
+                    response += rec.getUserLogin() + " " + DATE_FORMAT.format(rec.getDate()) + " " + valueSign +
+                            rec.getOperationValue() + " " + rec.getSpendingType() + " " + rec.getDescription()+ "\n";
                 }
-                response += rec.getUserLogin() + " " + DATE_FORMAT.format(rec.getDate()) + " " + valueSign +
-                        rec.getOperationValue() + " " + rec.getSpendingType() + " " + rec.getDescription()+ "\n";
+            } else {
+                response = "You have no any records.";
             }
         } catch (ServiceException servEx){
             // write log

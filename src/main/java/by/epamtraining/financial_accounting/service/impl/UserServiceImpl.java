@@ -12,8 +12,8 @@ public class UserServiceImpl implements UserService {
 
     public void signUp(String login, String password) throws ServiceException{
 //        System.out.println("login and pasw on the service enter:" + login + "; " + password);               // testing
-        if(login == null || password == null){
-            throw new ServiceException();
+        if(login == null || login.isEmpty() || password == null || password.isEmpty()){
+            throw new ServiceException("Login and password can't be null or empty.");
         } else {
             User newUser = new User(login, password);
             DAOFactory daoFactory = DAOFactory.getInstance();
@@ -29,8 +29,8 @@ public class UserServiceImpl implements UserService {
     }
 
     public void signIn(String login, String password) throws ServiceException{
-        if(login == null || password == null){
-            throw new ServiceException();
+        if(login == null || login.isEmpty() || password == null || password.isEmpty()){
+            throw new ServiceException("Login and password can't be null or empty.");
         } else {
             DAOFactory daoFactory = DAOFactory.getInstance();
             UserDAO userDAO = daoFactory.getUserDAO();

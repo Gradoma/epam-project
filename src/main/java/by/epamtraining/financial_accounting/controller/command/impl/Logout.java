@@ -11,7 +11,7 @@ public class Logout implements Command {
         if(UserContextHolder.getInstance().getActiveUser() == null){
             return "You can't logout. Sign In or Register first.";
         }
-        String response = null;
+        String response;
 
         ServiceFactory serviceFactory = ServiceFactory.getInstance();
         UserService userService = serviceFactory.getUserService();

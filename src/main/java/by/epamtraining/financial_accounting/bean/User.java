@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class User implements Serializable {
     private String login;
     private String password;
-//    private Role role;
+    private Role role = Role.USER;
 
     public User(){
         login = null;

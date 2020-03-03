@@ -14,20 +14,24 @@ public class SignUp implements Command {
         }
         String response;
 
-        String[] commandDetails = request.split(" ");
-        String login = commandDetails[0];
+        if(request.contains(" ")){
+            String[] commandDetails = request.split(" ");
+            String login = commandDetails[0];
 //        System.out.println("login = " + login);                     //testing
-        String password = commandDetails[1];
+            String password = commandDetails[1];
 //        System.out.println("pasw = " + password);                   // testing
 
-        ServiceFactory serviceFactory = ServiceFactory.getInstance();
-        UserService userService = serviceFactory.getUserService();
-        try{
-            userService.signUp(login, password);
-            response = "You have been registered! Welcome!";
-        } catch (ServiceException serEx){
-            // write to log
-            response = "Error during registration procedure: " + serEx.getMessage();
+            ServiceFactory serviceFactory = ServiceFactory.getInstance();
+            UserService userService = serviceFactory.getUserService();
+            try{
+                userService.signUp(login, password);
+                response = "You have been registered! Welcome!";
+            } catch (ServiceException servEx){
+                // write to log
+                response = "Error during registration procedure: " + servEx.getMessage();
+            }
+        } else {
+            response = "Incorrect data enter.";
         }
         return response;
     }

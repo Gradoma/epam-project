@@ -1,5 +1,6 @@
 package by.epamtraining.financial_accounting.dao.impl;
 
+import by.epamtraining.financial_accounting.bean.Role;
 import by.epamtraining.financial_accounting.bean.User;
 import by.epamtraining.financial_accounting.dao.UserDAO;
 import by.epamtraining.financial_accounting.dao.exception.DAOException;
@@ -29,7 +30,11 @@ public class FileUserDAO implements UserDAO {
 //            if (usersMap.get(login).equals(password)){
 //                System.out.println("Welcome!");
 //            } else throw new DAOException("Incorrect password");
-            return new User(username, usersMap.get(username));
+            User user = new User(username, usersMap.get(username));
+            if(user.getLogin().equals("admin")){
+                user.setRole(Role.ADMIN);
+            }
+            return user;
         } else return null;
     }
 

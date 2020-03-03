@@ -33,9 +33,13 @@ public class User implements Serializable {
         return password;
     }
 
-//    public Role getRole(){
-//        return role;
-//    }
+    public Role getRole(){
+        return role;
+    }
+
+    public void setRole(Role role){
+        this.role = role;
+    }
 
     @Override
     public boolean equals(Object o) {

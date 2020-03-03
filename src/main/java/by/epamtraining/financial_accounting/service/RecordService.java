@@ -11,5 +11,6 @@ public interface RecordService {
     void addRecord(String value, String date) throws ServiceException;
     List<Record> getUserRecords() throws ServiceException;
     List<Record> getUserRecordsInPeriod(Date date1, Date date2) throws ServiceException;
+    List<Record> getAllRecords() throws ServiceException;
     double getBalance() throws ServiceException;
 }

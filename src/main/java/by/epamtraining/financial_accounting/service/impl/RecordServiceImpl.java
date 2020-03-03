@@ -1,6 +1,7 @@
 package by.epamtraining.financial_accounting.service.impl;
 
 import by.epamtraining.financial_accounting.bean.Record;
+import by.epamtraining.financial_accounting.bean.Role;
 import by.epamtraining.financial_accounting.bean.User;
 import by.epamtraining.financial_accounting.dao.RecordDAO;
 import by.epamtraining.financial_accounting.dao.exception.DAOException;
@@ -87,6 +88,21 @@ public class RecordServiceImpl implements RecordService {
             }
         }
         return recordsInPeriod;
+    }
+
+    @Override
+    public List<Record> getAllRecords() throws ServiceException{
+        User currentUser = UserContextHolder.getInstance().getActiveUser();
+        if(currentUser.getRole() == Role.USER){
+            throw new ServiceException("Can't execute, not enough rights.");
+        }
+        DAOFactory daoFactory = DAOFactory.getInstance();
+        RecordDAO recordDAO = daoFactory.getRecordDAO();
+        try{
+            return recordDAO.getAllRecords();
+        } catch (DAOException daoEx){
+            throw new ServiceException(daoEx);
+        }
     }
 
     @Override

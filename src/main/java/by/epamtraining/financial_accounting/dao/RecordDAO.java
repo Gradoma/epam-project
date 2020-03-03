@@ -10,4 +10,5 @@ public interface RecordDAO {
 
     void addRecord(Record newRecord) throws DAOException;
     List<Record> getUserRecords(User currentUser) throws DAOException;
+    List<Record> getAllRecords() throws DAOException;
 }

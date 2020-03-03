@@ -18,6 +18,7 @@ public class CommandProvider {
         repository.put(CommandName.GET_RECORDS, new GetRecords());
         repository.put(CommandName.GET_BALANCE, new GetBalance());
         repository.put(CommandName.GET_RECORDS_IN_PERIOD, new GetRecInPeriod());
+        repository.put(CommandName.GET_ALL_REC, new GetAllRecords());
         repository.put(CommandName.WRONG_REQUEST, new WrongRequest());
     }
 

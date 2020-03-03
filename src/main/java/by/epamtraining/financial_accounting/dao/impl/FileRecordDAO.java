@@ -63,6 +63,10 @@ public class FileRecordDAO implements RecordDAO {
         return currentUserRecords;
     }
 
+    @Override
+    public List<Record> getAllRecords() throws DAOException{
+        return pullRecordsList(recordFilePath);
+    }
 
     private List<Record> pullRecordsList(String path) throws DAOException {
         try {

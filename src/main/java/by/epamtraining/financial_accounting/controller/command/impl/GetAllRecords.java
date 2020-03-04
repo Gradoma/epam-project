@@ -28,8 +28,8 @@ public class GetAllRecords implements Command {
                     if(rec.getOperationValue() > 0){
                         valueSign = "+";
                     }
-                    response += rec.getUserLogin() + " " + DATE_FORMAT.format(rec.getDate()) + " " + valueSign +
-                            rec.getOperationValue() + " " + rec.getSpendingType() + " " + rec.getDescription()+ "\n";
+                    response += rec.getUserLogin() + " " + DATE_FORMAT.format(rec.getDate()) + " " + rec.getSpendingType()
+                            + " " + valueSign + rec.getOperationValue() + " " + rec.getDescription()+ "\n";
                 }
             } else {
                 response = "No any records.";

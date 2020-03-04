@@ -9,9 +9,9 @@ import by.epamtraining.financial_accounting.service.factory.ServiceFactory;
 public class SignIn implements Command {
 
     public String execute(String request){
-        if(UserContextHolder.getInstance().getActiveUser() != null){
-            return "You already Signed In";
-        }
+//        if(UserContextHolder.getInstance().getActiveUser() != null){
+//            return "You already Signed In";
+//        }
         String response;
 
         if(request.contains(" ")){
@@ -26,7 +26,7 @@ public class SignIn implements Command {
                 response = "Welcome!";
             } catch (ServiceException servEx){
                 // write to log
-                response = "Error during login procedure: " + servEx;
+                response = "Error during login procedure: " + servEx.getMessage();
             }
         } else {
             response = "Incorrect data enter.";

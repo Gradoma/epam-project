@@ -15,9 +15,9 @@ public class GetRecords implements Command {
     private static final DateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
 
     public String execute(String request){
-        if(UserContextHolder.getInstance().getActiveUser() == null){
-            return "You can't get records. Sign In or Register first.";
-        }
+//        if(UserContextHolder.getInstance().getActiveUser() == null){
+//            return "You can't get records. Sign In or Register first.";
+//        }
         String response = "";
 
         ServiceFactory serviceFactory = ServiceFactory.getInstance();

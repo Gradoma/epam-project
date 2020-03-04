@@ -9,9 +9,9 @@ import by.epamtraining.financial_accounting.service.factory.ServiceFactory;
 public class SignUp implements Command {
 
     public String execute(String request){
-        if(UserContextHolder.getInstance().getActiveUser() != null){
-            return "You already Signed Up";
-        }
+//        if(UserContextHolder.getInstance().getActiveUser() != null){
+//            return "You already Signed Up";
+//        }
         String response;
 
         if(request.contains(" ")){

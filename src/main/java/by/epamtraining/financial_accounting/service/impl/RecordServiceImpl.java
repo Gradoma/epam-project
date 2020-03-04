@@ -22,13 +22,17 @@ public class RecordServiceImpl implements RecordService {
     private static final DateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
 
     public void addRecord(String valueString, String dateString) throws ServiceException {
+        UserContextHolder userContextHolder = UserContextHolder.getInstance();
+        if(userContextHolder.getActiveUser() == null){
+            throw new ServiceException("You can't add record. Sign In or Register first.");
+        }
 
         if (valueString == null || valueString.isEmpty() || dateString == null){
             throw new ServiceException("No information to create record, specify sum at least");
         }
 
         Record newRecord;
-        String userLogin = UserContextHolder.getInstance().getActiveUser().getLogin();
+        String userLogin = userContextHolder.getActiveUser().getLogin();
         Date date;
         try {
             double value = Double.valueOf(valueString);
@@ -52,8 +56,12 @@ public class RecordServiceImpl implements RecordService {
     }
 
     public List<Record> getUserRecords() throws ServiceException{
-        User currentUser = UserContextHolder.getInstance().getActiveUser();
+        UserContextHolder userContextHolder = UserContextHolder.getInstance();
+        if(userContextHolder.getActiveUser() == null){
+            throw new ServiceException("You can't get records. Sign In or Register first.");
+        }
 
+        User currentUser = userContextHolder.getActiveUser();
         DAOFactory daoFactory = DAOFactory.getInstance();
         RecordDAO recordDAO = daoFactory.getRecordDAO();
         try {
@@ -65,12 +73,16 @@ public class RecordServiceImpl implements RecordService {
 
     @Override
     public List<Record> getUserRecordsInPeriod(Date date1, Date date2) throws ServiceException {
+        UserContextHolder userContextHolder = UserContextHolder.getInstance();
+        if(userContextHolder.getActiveUser() == null){
+            throw new ServiceException("You can't get records. Sign In or Register first.");
+        }
 
         if(date1.after(date2)){
             throw new ServiceException("End date of period can't be early than start date.");
         }
 
-        User currentUser = UserContextHolder.getInstance().getActiveUser();
+        User currentUser = userContextHolder.getActiveUser();
         DAOFactory daoFactory = DAOFactory.getInstance();
         RecordDAO recordDAO = daoFactory.getRecordDAO();
         List<Record> userRecords;
@@ -80,8 +92,8 @@ public class RecordServiceImpl implements RecordService {
         } catch (DAOException daoEx){
             throw new ServiceException(daoEx);
         }
-        List<Record> recordsInPeriod = new ArrayList<>();
 
+        List<Record> recordsInPeriod = new ArrayList<>();
         for(Record rec : userRecords){
             if(rec.getDate().after(date1) && rec.getDate().before(date2)){
                 recordsInPeriod.add(rec);
@@ -92,7 +104,12 @@ public class RecordServiceImpl implements RecordService {
 
     @Override
     public List<Record> getAllRecords() throws ServiceException{
-        User currentUser = UserContextHolder.getInstance().getActiveUser();
+        UserContextHolder userContextHolder = UserContextHolder.getInstance();
+        if(userContextHolder.getActiveUser() == null){
+            throw new ServiceException("You can't get records. Sign In or Register first.");
+        }
+
+        User currentUser = userContextHolder.getActiveUser();
         if(currentUser.getRole() == Role.USER){
             throw new ServiceException("Can't execute, not enough rights.");
         }
@@ -107,8 +124,12 @@ public class RecordServiceImpl implements RecordService {
 
     @Override
     public double getBalance() throws ServiceException {
-        User currentUser = UserContextHolder.getInstance().getActiveUser();
+        UserContextHolder userContextHolder = UserContextHolder.getInstance();
+        if(userContextHolder.getActiveUser() == null){
+            throw new ServiceException("You can't get balance. Sign In or Register first.");
+        }
 
+        User currentUser = userContextHolder.getActiveUser();
         DAOFactory daoFactory = DAOFactory.getInstance();
         RecordDAO recordDAO = daoFactory.getRecordDAO();
 

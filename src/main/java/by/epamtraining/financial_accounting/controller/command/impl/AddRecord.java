@@ -18,9 +18,9 @@ public class AddRecord implements Command {
     private static final DateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
 
     public String execute(String request){
-        if(UserContextHolder.getInstance().getActiveUser() == null){
-            return "You can't add record. Sign In or Register first.";
-        }
+//        if(UserContextHolder.getInstance().getActiveUser() == null){
+//            return "You can't add record. Sign In or Register first.";
+//        }
         String response;
 
         String dateString;

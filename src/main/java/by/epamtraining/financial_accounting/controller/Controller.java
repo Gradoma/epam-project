@@ -34,7 +34,7 @@ public class Controller {
     }
 
     public String getAvailableCommand(){
-        String availableCommand = "\nList of available command:";
+        String availableCommand = "\nList of available commands:";
         if(UserContextHolder.getInstance().getActiveUser() == null){
             availableCommand += "\nsign_in - to sign in (sign_in login password)";
             availableCommand += "\nsign_up - to create new account (sign_up login password)";

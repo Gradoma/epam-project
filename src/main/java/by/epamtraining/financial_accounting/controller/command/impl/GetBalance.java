@@ -10,9 +10,9 @@ public class GetBalance implements Command {
 
     @Override
     public String execute(String request) {
-        if(UserContextHolder.getInstance().getActiveUser() == null){
-            return "You can't get balance. Sign In or Register first.";
-        }
+//        if(UserContextHolder.getInstance().getActiveUser() == null){
+//            return "You can't get balance. Sign In or Register first.";
+//        }
         String response;
 
         ServiceFactory serviceFactory = ServiceFactory.getInstance();

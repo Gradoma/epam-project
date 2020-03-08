@@ -20,16 +20,8 @@ public class Controller {
         } else {
             commandName = request;
         }
-//        System.out.println("controller parse result: " + commandName);                                // testing
         executionCommand = commandProvider.getCommand(commandName);
-//        System.out.println(executionCommand == null);                                               // testing
-
         String commandParameters = request.substring(request.indexOf(paramDelimeter)+1).trim();
-//        System.out.println("comand param parsing result = " + commandParameters + ".");                   // testing
-//        System.out.println("comand param trimmed = " + commandParameters.trim() + ".");                    // testing
-//        String response = executionCommand.execute(commandParameters);
-//
-//        return response;
         return executionCommand.execute(commandParameters);
     }
 

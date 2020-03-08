@@ -37,8 +37,9 @@ public class RecordServiceImpl implements RecordService {
         try {
             double value = Double.valueOf(valueString);
             if(value > 0){
-                System.out.println("condition: " + (value > 0));
                 description = "Income";
+            } else if (getBalance() + value < 0){
+                throw new ServiceException("Not enough money");
             }
             if (dateString.length() > 0) {
                 date = DATE_FORMAT.parse(dateString);

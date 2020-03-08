@@ -35,15 +35,21 @@ public class Main {
         DataScanner dataScanner = new DataScanner();
         boolean inProgress = true;
         Controller controller = new Controller();
-
-        while (inProgress){
+        String consoleRequest;
+        do{
             System.out.println(controller.getAvailableCommand() + "\nstop - to stop program");
-            String consoleRequest = dataScanner.scanFromConcole();
-            if(consoleRequest.equals("stop")){
-                break;
-            }
+            consoleRequest = dataScanner.scanFromConcole();
             System.out.println(controller.executeTask(consoleRequest));
-        }
+        } while (!consoleRequest.equals("stop"));
+
+//        while (inProgress){                                                                     //alternative version
+//            System.out.println(controller.getAvailableCommand() + "\nstop - to stop program");  // DONT DELETE!!!!!
+//            String consoleRequest = dataScanner.scanFromConcole();
+//            if(consoleRequest.equals("stop")){
+//                break;
+//            }
+//            System.out.println(controller.executeTask(consoleRequest));
+//        }
 
                                                   // DONT DELETE!!!!!
 //        String testRequest = "sign_in dad 15651";

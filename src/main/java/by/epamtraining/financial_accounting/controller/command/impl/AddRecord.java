@@ -18,21 +18,41 @@ public class AddRecord implements Command {
     private static final DateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
 
     public String execute(String request){
-//        if(UserContextHolder.getInstance().getActiveUser() == null){
-//            return "You can't add record. Sign In or Register first.";
-//        }
         String response;
 
-        String dateString;
-        String valueString;
-        if(request.contains(" ")){
-            String[] recordDetails = request.split(" ");
-            dateString = recordDetails[0];
-            valueString = recordDetails[1];
-        } else {
+        String dateString = "";
+        String valueString = "";
+        String description = "";
+//        if(request.contains(" ")){                                    //DONT DELETE!!!!
+//            String[] recordDetails = request.split(" ");
+//            dateString = recordDetails[0];
+//            valueString = recordDetails[1];
+//        } else {
+//            valueString = request;
+//            dateString = "";
+//        }
+
+        if(!request.contains(" ")){
             valueString = request;
             dateString = "";
+            description = "";
+        } else {
+            String[] recordDetails = request.split(" ");
+            switch (recordDetails.length){
+                case 2:
+                    dateString = recordDetails[0];
+                    valueString = recordDetails[1];
+                    break;
+                case 3:
+                    dateString = recordDetails[0];
+                    valueString = recordDetails[1];
+                    description = recordDetails[2];
+                    break;
+                default:
+                    valueString = recordDetails[0];
+            }
         }
+
 
 
 //        System.out.println("date String = " + dateString);                          //testing
@@ -49,7 +69,7 @@ public class AddRecord implements Command {
 
             ServiceFactory serviceFactory = ServiceFactory.getInstance();
             RecordService recordService = serviceFactory.getRecordService();
-            recordService.addRecord(valueString, dateString);
+            recordService.addRecord(valueString, dateString, description);
 
             response = "Success! New record was added!";
         } catch (ServiceException servEx){

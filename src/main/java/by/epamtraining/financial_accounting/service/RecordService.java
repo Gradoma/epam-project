@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 public interface RecordService {
-    void addRecord(String value, String date) throws ServiceException;
+    void addRecord(String value, String date, String description) throws ServiceException;
     List<Record> getUserRecords() throws ServiceException;
     List<Record> getUserRecordsInPeriod(Date date1, Date date2) throws ServiceException;
     List<Record> getAllRecords() throws ServiceException;

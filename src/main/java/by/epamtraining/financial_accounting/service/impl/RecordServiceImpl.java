@@ -21,13 +21,13 @@ public class RecordServiceImpl implements RecordService {
 
     private static final DateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
 
-    public void addRecord(String valueString, String dateString) throws ServiceException {
+    public void addRecord(String valueString, String dateString, String description) throws ServiceException {
         UserContextHolder userContextHolder = UserContextHolder.getInstance();
         if(userContextHolder.getActiveUser() == null){
             throw new ServiceException("You can't add record. Sign In or Register first.");
         }
 
-        if (valueString == null || valueString.isEmpty() || dateString == null){
+        if (valueString == null || valueString.isEmpty() || dateString == null || description == null){
             throw new ServiceException("No information to create record, specify sum at least");
         }
 
@@ -36,9 +36,17 @@ public class RecordServiceImpl implements RecordService {
         Date date;
         try {
             double value = Double.valueOf(valueString);
+            if(value > 0){
+                System.out.println("condition: " + (value > 0));
+                description = "Income";
+            }
             if (dateString.length() > 0) {
                 date = DATE_FORMAT.parse(dateString);
-                newRecord = new Record(userLogin, value, date);
+                if(description.length() > 0){
+                    newRecord = new Record(userLogin, value, date, description);
+                } else {
+                    newRecord = new Record(userLogin, value, date);
+                }
             } else {
                 newRecord = new Record(userLogin, value);
             }

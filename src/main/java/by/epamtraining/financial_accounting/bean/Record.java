@@ -7,25 +7,23 @@ public class Record implements Serializable {
     private String userLogin;
     private double operationValue;
     private Date date;
-    private SpendingType spendingType;
     private String description;
 
     public Record() {
     }
 
     public Record(String userLogin, double operationValue, Date date) {
-        this(userLogin, operationValue, date, SpendingType.OTHER, "...");
+        this(userLogin, operationValue, date, "Non-specified");
     }
 
     public Record(String userLogin, double operationValue) {
         this(userLogin, operationValue, new Date());
     }
 
-    public Record(String userLogin, double operationValue, Date date, SpendingType spendingType, String description) {
+    public Record(String userLogin, double operationValue, Date date, String description) {
         this.userLogin = userLogin;
         this.operationValue = operationValue;
         this.date = date;
-        this.spendingType = spendingType;
         this.description = description;
     }
 
@@ -67,10 +65,6 @@ public class Record implements Serializable {
 
     public Date getDate() {
         return date;
-    }
-
-    public SpendingType getSpendingType() {
-        return spendingType;
     }
 
     public String getDescription() {

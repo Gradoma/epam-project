@@ -28,7 +28,7 @@ public class FileRecordDAO implements RecordDAO {
         if(newRecord == null){
             throw new DAOException("Can't add null record.");
         }
-        List<Record> recordList = pullRecordsList(recordFilePath);
+        List<Record> recordList = pullRecordsList();
         recordList.add(newRecord);
         pushRecordsList(recordList);
     }
@@ -50,7 +50,7 @@ public class FileRecordDAO implements RecordDAO {
         if (currentUser == null){
             throw new DAOException("User can't be null");
         }
-        List<Record> allRecords = pullRecordsList(recordFilePath);
+        List<Record> allRecords = pullRecordsList();
 //        System.out.println("all records size = " + allRecords.size());                                   //testing
         List<Record> currentUserRecords = new ArrayList<>();
 //        System.out.println("curr user list size init = " + currentUserRecords.size());                  //testing
@@ -65,10 +65,10 @@ public class FileRecordDAO implements RecordDAO {
 
     @Override
     public List<Record> getAllRecords() throws DAOException{
-        return pullRecordsList(recordFilePath);
+        return pullRecordsList();
     }
 
-    private List<Record> pullRecordsList(String path) throws DAOException {
+    private List<Record> pullRecordsList() throws DAOException {
         try {
             InputStream resourceAsStream = this.getClass().getClassLoader().getResourceAsStream("RecordFile.txt");
 //            InputStream is = new FileInputStream(path);

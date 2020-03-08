@@ -39,7 +39,7 @@ public class Controller {
             availableCommand += "\nsign_in - to sign in (sign_in login password)";
             availableCommand += "\nsign_up - to create new account (sign_up login password)";
         } else {
-            availableCommand += "\nadd_record - add new record (add_record dd-mm-yyyy sum ; OR: add_record sum (current date)";
+            availableCommand += "\nadd_record - add new record (add_record dd-mm-yyyy sum ; OR: add_record sum (current date); OR: add_record dd-mm-yyyy sum decrip";
             availableCommand += "\nget_records - get all your records";
             availableCommand += "\nget_balance - get current balance";
             availableCommand += "\nget_records_in_period - get your records between 2 dates(get_records_in_period dd-mm-yyyy dd-mm-yyyy)";

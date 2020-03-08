@@ -31,7 +31,7 @@ public class FileUserDAO implements UserDAO {
 //                System.out.println("Welcome!");
 //            } else throw new DAOException("Incorrect password");
             User user = new User(username, usersMap.get(username));
-            if(user.getLogin().equals("admin")){
+            if(user.getLogin().equals("admin")){                                  // DON'T DELETE!!
                 user.setRole(Role.ADMIN);
             }
             return user;

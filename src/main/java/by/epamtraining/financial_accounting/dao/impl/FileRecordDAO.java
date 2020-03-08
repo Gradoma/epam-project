@@ -6,6 +6,7 @@ import by.epamtraining.financial_accounting.dao.RecordDAO;
 import by.epamtraining.financial_accounting.dao.exception.DAOException;
 
 import java.io.*;
+import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -69,8 +70,8 @@ public class FileRecordDAO implements RecordDAO {
     }
 
     private List<Record> pullRecordsList() throws DAOException {
-        try {
-            InputStream resourceAsStream = this.getClass().getClassLoader().getResourceAsStream("RecordFile.txt");
+        try (InputStream resourceAsStream = this.getClass().getClassLoader().getResourceAsStream("RecordFile.txt")){
+
 //            InputStream is = new FileInputStream(path);
             ObjectInput oi = new ObjectInputStream(resourceAsStream);
             List<Record> recordList = (ArrayList<Record>)oi.readObject();
@@ -86,9 +87,14 @@ public class FileRecordDAO implements RecordDAO {
     }
 
     private void pushRecordsList(List<Record> updatedRecords) throws DAOException{
+        File file;
         try {
-            File file = Path.of(this.getClass().getClassLoader().getResource("RecordFile.txt").toURI()).toFile();
-            OutputStream os = new FileOutputStream(file);
+            file = Path.of(this.getClass().getClassLoader().getResource("RecordFile.txt").toURI()).toFile();
+        } catch (Exception e){
+            throw new DAOException(e);
+        }
+
+        try (OutputStream os = new FileOutputStream(file)){
             ObjectOutput oo = new ObjectOutputStream(os);
             oo.writeObject(updatedRecords);
             oo.close();

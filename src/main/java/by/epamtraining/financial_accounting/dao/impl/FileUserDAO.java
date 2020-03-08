@@ -52,11 +52,10 @@ public class FileUserDAO implements UserDAO {
     }
 
     private HashMap<String, String> pullUsersMap(String path) throws DAOException{
-        try {
-            InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("UserFile.txt");
+        try (InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("UserFile.txt")) {
+
 //            InputStream is = new FileInputStream(path);
             ObjectInput oi = new ObjectInputStream(inputStream);
-
             HashMap<String, String> usersMap = (HashMap<String, String>) oi.readObject();
             oi.close();
             return usersMap;
@@ -68,9 +67,13 @@ public class FileUserDAO implements UserDAO {
     }
 
     private void pushUsersMap(HashMap<String, String> updatedUsers) throws DAOException{
+        File file;
         try {
-            File file = Path.of(this.getClass().getClassLoader().getResource("UserFile.txt").toURI()).toFile();
-            OutputStream os = new FileOutputStream(file);
+            file = Path.of(this.getClass().getClassLoader().getResource("UserFile.txt").toURI()).toFile();
+        } catch (Exception e){
+            throw new DAOException(e);
+        }
+        try (OutputStream os = new FileOutputStream(file)){
             ObjectOutput oo = new ObjectOutputStream(os);
             oo.writeObject(updatedUsers);
             oo.close();

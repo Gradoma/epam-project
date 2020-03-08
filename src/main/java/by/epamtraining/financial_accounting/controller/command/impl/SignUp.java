@@ -1,25 +1,23 @@
 package by.epamtraining.financial_accounting.controller.command.impl;
 
 import by.epamtraining.financial_accounting.controller.command.Command;
-import by.epamtraining.financial_accounting.service.UserContextHolder;
 import by.epamtraining.financial_accounting.service.UserService;
 import by.epamtraining.financial_accounting.service.exception.ServiceException;
 import by.epamtraining.financial_accounting.service.factory.ServiceFactory;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class SignUp implements Command {
+    private static Logger log = Logger.getLogger(SignUp.class.getName());
 
     public String execute(String request){
-//        if(UserContextHolder.getInstance().getActiveUser() != null){
-//            return "You already Signed Up";
-//        }
         String response;
 
         if(request.contains(" ")){
             String[] commandDetails = request.split(" ");
             String login = commandDetails[0];
-//        System.out.println("login = " + login);                     //testing
             String password = commandDetails[1];
-//        System.out.println("pasw = " + password);                   // testing
 
             ServiceFactory serviceFactory = ServiceFactory.getInstance();
             UserService userService = serviceFactory.getUserService();
@@ -27,7 +25,7 @@ public class SignUp implements Command {
                 userService.signUp(login, password);
                 response = "You have been registered! Welcome!";
             } catch (ServiceException servEx){
-                // write to log
+                log.log(Level.SEVERE, "Exception: ", servEx);
                 response = "Error during registration procedure: " + servEx.getMessage();
             }
         } else {

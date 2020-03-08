@@ -4,6 +4,7 @@ import by.epamtraining.financial_accounting.bean.Record;
 import by.epamtraining.financial_accounting.bean.User;
 import by.epamtraining.financial_accounting.dao.RecordDAO;
 import by.epamtraining.financial_accounting.dao.exception.DAOException;
+import by.epamtraining.financial_accounting.dao.exception.DAOValidationException;
 
 import java.io.*;
 import java.net.URISyntaxException;
@@ -27,7 +28,7 @@ public class FileRecordDAO implements RecordDAO {
 
     public void addRecord(Record newRecord) throws DAOException{
         if(newRecord == null){
-            throw new DAOException("Can't add null record.");
+            throw new DAOValidationException("Null reference to Record object.");
         }
         List<Record> recordList = pullRecordsList();
         recordList.add(newRecord);
@@ -49,7 +50,7 @@ public class FileRecordDAO implements RecordDAO {
 
     public List<Record> getUserRecords(User currentUser) throws DAOException{
         if (currentUser == null){
-            throw new DAOException("User can't be null");
+            throw new DAOValidationException("Null reference to User object");
         }
         List<Record> allRecords = pullRecordsList();
 //        System.out.println("all records size = " + allRecords.size());                                   //testing

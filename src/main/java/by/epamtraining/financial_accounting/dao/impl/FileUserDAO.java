@@ -4,6 +4,8 @@ import by.epamtraining.financial_accounting.bean.Role;
 import by.epamtraining.financial_accounting.bean.User;
 import by.epamtraining.financial_accounting.dao.UserDAO;
 import by.epamtraining.financial_accounting.dao.exception.DAOException;
+import by.epamtraining.financial_accounting.dao.exception.DAONonuniqueValueException;
+import by.epamtraining.financial_accounting.dao.exception.DAOValidationException;
 
 import java.io.*;
 import java.net.URL;
@@ -21,7 +23,7 @@ public class FileUserDAO implements UserDAO {
 
     public User findByUserName(String username) throws DAOException {
         if(username == null || username.isEmpty()){
-            throw new DAOException();
+            throw new DAOException("Null parameter username");
         }
 //        Date parse = new SimpleDateFormat("dd-MM-yyyy").parse("11-08-1997");
         //Double.valueOf("11.0")
@@ -40,11 +42,11 @@ public class FileUserDAO implements UserDAO {
 
     public void saveUser(User user) throws DAOException{
         if(user == null){
-            throw new DAOException();
+            throw new DAOValidationException("Null reference to User object");
         } else {
             HashMap<String, String> usersMap = pullUsersMap(userFilePath);
             if (usersMap.containsKey(user.getLogin())) {
-                throw new DAOException("User with this login already exists");
+                throw new DAONonuniqueValueException("User with this login already exists");
             }
             usersMap.put(user.getLogin(), user.getPassword());
             pushUsersMap(usersMap);

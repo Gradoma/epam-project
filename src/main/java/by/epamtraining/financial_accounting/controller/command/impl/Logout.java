@@ -1,17 +1,17 @@
 package by.epamtraining.financial_accounting.controller.command.impl;
 
 import by.epamtraining.financial_accounting.controller.command.Command;
-import by.epamtraining.financial_accounting.service.UserContextHolder;
 import by.epamtraining.financial_accounting.service.UserService;
 import by.epamtraining.financial_accounting.service.exception.ServiceException;
 import by.epamtraining.financial_accounting.service.factory.ServiceFactory;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class Logout implements Command {
+    private static Logger log = Logger.getLogger(Logout.class.getName());
 
     public String execute(String request){
-//        if(UserContextHolder.getInstance().getActiveUser() == null){
-//            return "You can't logout. Sign In or Register first.";
-//        }
         String response;
 
         ServiceFactory serviceFactory = ServiceFactory.getInstance();
@@ -19,6 +19,7 @@ public class Logout implements Command {
         try{
             userService.logout();
         } catch (ServiceException servEx){
+            log.log(Level.SEVERE, "Exception: ", servEx);
             response = servEx.getMessage();
         }
         response = "Buy!";

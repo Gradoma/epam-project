@@ -3,24 +3,22 @@ package by.epamtraining.financial_accounting.controller.command.impl;
 import by.epamtraining.financial_accounting.bean.Record;
 import by.epamtraining.financial_accounting.controller.command.Command;
 import by.epamtraining.financial_accounting.service.RecordService;
-import by.epamtraining.financial_accounting.service.UserContextHolder;
 import by.epamtraining.financial_accounting.service.exception.ServiceException;
 import by.epamtraining.financial_accounting.service.factory.ServiceFactory;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class GetRecInPeriod implements Command {
     private static final DateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
+    private static Logger log = Logger.getLogger(GetRecInPeriod.class.getName());
 
     public String execute(String request){
-//        if(UserContextHolder.getInstance().getActiveUser() == null){
-//            return "You can't get records. Sign In or Register first.";
-//        }
         String response = "";
 
         Date date1;
@@ -47,10 +45,10 @@ public class GetRecInPeriod implements Command {
                     }
                 }
             } catch (ParseException ex){
-                // write log
+                log.log(Level.SEVERE, "Exception: ", ex);
                 response = "Incorrect format.";
             } catch (ServiceException servEx){
-                // write log
+                log.log(Level.SEVERE, "Exception: ", servEx);
                 response = servEx.getMessage();
             }
         } else return "Incorrect date format";

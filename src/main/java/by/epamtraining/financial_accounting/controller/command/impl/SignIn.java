@@ -1,17 +1,17 @@
 package by.epamtraining.financial_accounting.controller.command.impl;
 
 import by.epamtraining.financial_accounting.controller.command.Command;
-import by.epamtraining.financial_accounting.service.UserContextHolder;
 import by.epamtraining.financial_accounting.service.UserService;
 import by.epamtraining.financial_accounting.service.exception.ServiceException;
 import by.epamtraining.financial_accounting.service.factory.ServiceFactory;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class SignIn implements Command {
+    private static Logger log = Logger.getLogger(SignIn.class.getName());
 
     public String execute(String request){
-//        if(UserContextHolder.getInstance().getActiveUser() != null){
-//            return "You already Signed In";
-//        }
         String response;
 
         if(request.contains(" ")){
@@ -25,7 +25,7 @@ public class SignIn implements Command {
                 userService.signIn(login, password);
                 response = "Welcome!";
             } catch (ServiceException servEx){
-                // write to log
+                log.log(Level.SEVERE, "Exception: ", servEx);
                 response = "Error during login procedure: " + servEx.getMessage();
             }
         } else {

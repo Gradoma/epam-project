@@ -8,7 +8,7 @@ import by.epamtraining.financial_accounting.dao.exception.DAOException;
 import by.epamtraining.financial_accounting.dao.factory.DAOFactory;
 import by.epamtraining.financial_accounting.service.RecordService;
 import by.epamtraining.financial_accounting.service.UserContextHolder;
-import by.epamtraining.financial_accounting.service.exception.ServiceException;
+import by.epamtraining.financial_accounting.service.exception.*;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -24,11 +24,11 @@ public class RecordServiceImpl implements RecordService {
     public void addRecord(String valueString, String dateString, String description) throws ServiceException {
         UserContextHolder userContextHolder = UserContextHolder.getInstance();
         if(userContextHolder.getActiveUser() == null){
-            throw new ServiceException("You can't add record. Sign In or Register first.");
+            throw new ServiceCurrentUserStatusException("Unavailable command Add Record for current user status");
         }
 
         if (valueString == null || valueString.isEmpty() || dateString == null || description == null){
-            throw new ServiceException("No information to create record, specify sum at least");
+            throw new ServiceValidationException("Null or empty String parameters");
         }
 
         Record newRecord;
@@ -39,7 +39,7 @@ public class RecordServiceImpl implements RecordService {
             if(value > 0){
                 description = "Income";
             } else if (getBalance() + value < 0){
-                throw new ServiceException("Not enough money");
+                throw new ServiceIncorrectRequestConditionException("Not enough money");
             }
             if (dateString.length() > 0) {
                 date = DATE_FORMAT.parse(dateString);
@@ -52,9 +52,8 @@ public class RecordServiceImpl implements RecordService {
                 newRecord = new Record(userLogin, value);
             }
         } catch (NumberFormatException | ParseException e){
-            throw new ServiceException("Incorrect format.", e);
+            throw new ServiceRequestFormatException("Incorrect format.", e);
         }
-
         DAOFactory daoFactory = DAOFactory.getInstance();
         RecordDAO recordDAO = daoFactory.getRecordDAO();
         try {
@@ -67,7 +66,7 @@ public class RecordServiceImpl implements RecordService {
     public List<Record> getUserRecords() throws ServiceException{
         UserContextHolder userContextHolder = UserContextHolder.getInstance();
         if(userContextHolder.getActiveUser() == null){
-            throw new ServiceException("You can't get records. Sign In or Register first.");
+            throw new ServiceCurrentUserStatusException("Unavailable command Get User Records for current user status");
         }
 
         User currentUser = userContextHolder.getActiveUser();
@@ -84,11 +83,11 @@ public class RecordServiceImpl implements RecordService {
     public List<Record> getUserRecordsInPeriod(Date date1, Date date2) throws ServiceException {
         UserContextHolder userContextHolder = UserContextHolder.getInstance();
         if(userContextHolder.getActiveUser() == null){
-            throw new ServiceException("You can't get records. Sign In or Register first.");
+            throw new ServiceCurrentUserStatusException("Unavailable command for current user status");
         }
 
         if(date1.after(date2)){
-            throw new ServiceException("End date of period can't be early than start date.");
+            throw new ServiceIncorrectRequestConditionException("End date of period can't be early than start date.");
         }
 
         User currentUser = userContextHolder.getActiveUser();
@@ -115,12 +114,12 @@ public class RecordServiceImpl implements RecordService {
     public List<Record> getAllRecords() throws ServiceException{
         UserContextHolder userContextHolder = UserContextHolder.getInstance();
         if(userContextHolder.getActiveUser() == null){
-            throw new ServiceException("You can't get records. Sign In or Register first.");
+            throw new ServiceCurrentUserStatusException("Unavailable command for current user status");
         }
 
         User currentUser = userContextHolder.getActiveUser();
         if(currentUser.getRole() == Role.USER){
-            throw new ServiceException("Can't execute, not enough rights.");
+            throw new ServiceCurrentUserStatusException("Can't execute, not enough rights.");
         }
         DAOFactory daoFactory = DAOFactory.getInstance();
         RecordDAO recordDAO = daoFactory.getRecordDAO();
@@ -135,7 +134,7 @@ public class RecordServiceImpl implements RecordService {
     public double getBalance() throws ServiceException {
         UserContextHolder userContextHolder = UserContextHolder.getInstance();
         if(userContextHolder.getActiveUser() == null){
-            throw new ServiceException("You can't get balance. Sign In or Register first.");
+            throw new ServiceCurrentUserStatusException("Unavailable command for current user status");
         }
 
         User currentUser = userContextHolder.getActiveUser();

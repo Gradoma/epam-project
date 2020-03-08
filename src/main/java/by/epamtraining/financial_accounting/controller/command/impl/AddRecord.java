@@ -1,36 +1,21 @@
 package by.epamtraining.financial_accounting.controller.command.impl;
 
-import by.epamtraining.financial_accounting.bean.Record;
 import by.epamtraining.financial_accounting.controller.command.Command;
 import by.epamtraining.financial_accounting.service.RecordService;
-import by.epamtraining.financial_accounting.service.UserContextHolder;
-import by.epamtraining.financial_accounting.service.UserService;
 import by.epamtraining.financial_accounting.service.exception.ServiceException;
 import by.epamtraining.financial_accounting.service.factory.ServiceFactory;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class AddRecord implements Command {
-
-    private static final DateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
+    private static Logger log = Logger.getLogger(AddRecord.class.getName());
 
     public String execute(String request){
         String response;
-
         String dateString = "";
-        String valueString = "";
+        String valueString;
         String description = "";
-//        if(request.contains(" ")){                                    //DONT DELETE!!!!
-//            String[] recordDetails = request.split(" ");
-//            dateString = recordDetails[0];
-//            valueString = recordDetails[1];
-//        } else {
-//            valueString = request;
-//            dateString = "";
-//        }
 
         if(!request.contains(" ")){
             valueString = request;
@@ -52,28 +37,14 @@ public class AddRecord implements Command {
                     valueString = recordDetails[0];
             }
         }
-
-
-
-//        System.out.println("date String = " + dateString);                          //testing
-//        System.out.println("value string = " + valueString);                         // testing
-
         try {
-//            Date date;
-//            if(dateString.length() > 0){
-//                date = DATE_FORMAT.parse(dateString);
-//            } else {
-//                date = new Date();
-//            }
-//            double value = Double.valueOf(valueString);
-
             ServiceFactory serviceFactory = ServiceFactory.getInstance();
             RecordService recordService = serviceFactory.getRecordService();
             recordService.addRecord(valueString, dateString, description);
 
             response = "Success! New record was added!";
         } catch (ServiceException servEx){
-            // write log
+            log.log(Level.SEVERE, "Exception: ", servEx);
             response = "Error during add record procedure: " + servEx.getMessage();
         }
         return response;

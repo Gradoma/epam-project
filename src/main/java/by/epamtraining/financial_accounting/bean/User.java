@@ -7,10 +7,7 @@ public class User implements Serializable {
     private String password;
     private Role role;
 
-    private User(){
-        login = null;
-        password = null;
-    }
+    public User(){}
 
     public User(String login, String password){
         this.login = login;
@@ -44,25 +41,53 @@ public class User implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        User user = (User) o;
-
-        if (login != null ? !login.equals(user.login) : user.login != null) return false;
-        return password != null ? password.equals(user.password) : user.password == null;
+        if(this == o){
+            return true;
+        }
+        if(o == null){
+            return false;
+        }
+        if(getClass() != o.getClass()){
+            return false;
+        }
+        User user = (User)o;
+        if(login != null) {
+            if (!login.equals(user.login)) {
+                return false;
+            }
+        } else {
+            if(user.login != null){
+                return false;
+            }
+        }
+        if(password != null) {
+            if (!password.equals(user.password)) {
+                return false;
+            }
+        } else {
+            if(user.password != null){
+                return false;
+            }
+        }
+        if(role != null){
+            return role == user.role;
+        } else {
+            return user.role == null;
+        }
     }
 
     @Override
     public int hashCode() {
+        int prime = 31;
         int result = login != null ? login.hashCode() : 0;
         result = 31 * result + (password != null ? password.hashCode() : 0);
+        result = 31 * result + (role != null ? role.hashCode() : 0);
         return result;
     }
 
     @Override
     public String toString() {
-        return "User{" +
+        return getClass().getName() + "{" +
                 "login='" + login + '\'' +
                 ", password='" + password + '\'' +
                 '}';

@@ -11,12 +11,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class GetRecInPeriod implements Command {
     private static final DateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
-    private static Logger log = Logger.getLogger(GetRecInPeriod.class.getName());
 
     public String execute(String request){
         String response = "";
@@ -45,13 +42,13 @@ public class GetRecInPeriod implements Command {
                     }
                 }
             } catch (ParseException ex){
-                log.log(Level.SEVERE, "Exception: ", ex);
-                response = "Incorrect format.";
+                //write log
+                response = "Incorrect date format.";
             } catch (ServiceException servEx){
-                log.log(Level.SEVERE, "Exception: ", servEx);
-                response = servEx.getMessage();
+                //write log
+                response = "Error during get balance procedure: " + servEx.getMessage();
             }
-        } else return "Incorrect date format";
+        } else return "Incorrect request format";
         return response;
     }
 }

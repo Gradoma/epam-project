@@ -5,12 +5,7 @@ import by.epamtraining.financial_accounting.service.RecordService;
 import by.epamtraining.financial_accounting.service.exception.ServiceException;
 import by.epamtraining.financial_accounting.service.factory.ServiceFactory;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 public class AddRecord implements Command {
-    private static Logger log = Logger.getLogger(AddRecord.class.getName());
-
     public String execute(String request){
         String response;
         String dateString = "";
@@ -44,7 +39,7 @@ public class AddRecord implements Command {
 
             response = "Success! New record was added!";
         } catch (ServiceException servEx){
-            log.log(Level.SEVERE, "Exception: ", servEx);
+            //write log
             response = "Error during add record procedure: " + servEx.getMessage();
         }
         return response;

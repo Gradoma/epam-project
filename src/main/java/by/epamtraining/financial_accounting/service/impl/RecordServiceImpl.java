@@ -59,7 +59,7 @@ public class RecordServiceImpl implements RecordService {
         try {
             recordDAO.addRecord(newRecord);
         } catch (DAOException daoEx) {
-            throw new ServiceException(daoEx);
+            throw new ServiceException(daoEx.getMessage());
         }
     }
 
@@ -75,7 +75,7 @@ public class RecordServiceImpl implements RecordService {
         try {
             return recordDAO.getUserRecords(currentUser);
         } catch (DAOException daoEx){
-            throw new ServiceException(daoEx);
+            throw new ServiceException(daoEx.getMessage());
         }
     }
 
@@ -98,7 +98,7 @@ public class RecordServiceImpl implements RecordService {
         try {
             userRecords = recordDAO.getUserRecords(currentUser);
         } catch (DAOException daoEx){
-            throw new ServiceException(daoEx);
+            throw new ServiceException(daoEx.getMessage());
         }
 
         List<Record> recordsInPeriod = new ArrayList<>();
@@ -126,7 +126,7 @@ public class RecordServiceImpl implements RecordService {
         try{
             return recordDAO.getAllRecords();
         } catch (DAOException daoEx){
-            throw new ServiceException(daoEx);
+            throw new ServiceException(daoEx.getMessage());
         }
     }
 
@@ -149,7 +149,7 @@ public class RecordServiceImpl implements RecordService {
             }
             return balance;
         } catch (DAOException daoEx){
-            throw new ServiceException(daoEx);
+            throw new ServiceException(daoEx.getMessage());
         }
 
     }

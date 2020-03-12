@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService {
                 userDAO.saveUser(newUser);
                 userContextHolder.setActiveUser(newUser);
             } catch (DAOException daoEx){
-                throw new ServiceException(daoEx);
+                throw new ServiceException(daoEx.getMessage());
             }
         }
     }
@@ -54,7 +54,7 @@ public class UserServiceImpl implements UserService {
                     userContextHolder.setActiveUser(user);
                 }
             } catch (DAOException daoEx){
-                throw new ServiceException(daoEx.getMessage(), daoEx);
+                throw new ServiceException(daoEx.getMessage());
             }
         }
     }

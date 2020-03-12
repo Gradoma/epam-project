@@ -5,12 +5,7 @@ import by.epamtraining.financial_accounting.service.UserService;
 import by.epamtraining.financial_accounting.service.exception.ServiceException;
 import by.epamtraining.financial_accounting.service.factory.ServiceFactory;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 public class Logout implements Command {
-    private static Logger log = Logger.getLogger(Logout.class.getName());
-
     public String execute(String request){
         String response;
 
@@ -19,7 +14,7 @@ public class Logout implements Command {
         try{
             userService.logout();
         } catch (ServiceException servEx){
-            log.log(Level.SEVERE, "Exception: ", servEx);
+            // write log
             response = servEx.getMessage();
         }
         response = "Buy!";

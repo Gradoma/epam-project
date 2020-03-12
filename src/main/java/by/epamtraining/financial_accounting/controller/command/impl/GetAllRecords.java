@@ -9,12 +9,9 @@ import by.epamtraining.financial_accounting.service.factory.ServiceFactory;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class GetAllRecords implements Command {
     private static final DateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
-    private static Logger log = Logger.getLogger(GetAllRecords.class.getName());
 
     @Override
     public String execute(String request) {
@@ -38,7 +35,7 @@ public class GetAllRecords implements Command {
                 response = "No any records.";
             }
         } catch (ServiceException servEx){
-            log.log(Level.SEVERE, "Exception: ", servEx);
+            //write log
             response = "Error during get records procedure: " + servEx.getMessage();
         }
         return response;

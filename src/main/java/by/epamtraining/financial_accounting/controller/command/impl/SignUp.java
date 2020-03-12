@@ -5,12 +5,7 @@ import by.epamtraining.financial_accounting.service.UserService;
 import by.epamtraining.financial_accounting.service.exception.ServiceException;
 import by.epamtraining.financial_accounting.service.factory.ServiceFactory;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 public class SignUp implements Command {
-    private static Logger log = Logger.getLogger(SignUp.class.getName());
-
     public String execute(String request){
         String response;
 
@@ -25,11 +20,11 @@ public class SignUp implements Command {
                 userService.signUp(login, password);
                 response = "You have been registered! Welcome!";
             } catch (ServiceException servEx){
-                log.log(Level.SEVERE, "Exception: ", servEx);
+                // write log
                 response = "Error during registration procedure: " + servEx.getMessage();
             }
         } else {
-            response = "Incorrect data enter.";
+            response = "Error during registration procedure: Incorrect data enter.";
         }
         return response;
     }

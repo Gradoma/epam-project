@@ -6,12 +6,9 @@ import by.epamtraining.financial_accounting.controller.command.impl.*;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class CommandProvider {
     private final Map<CommandName, Command> repository = new HashMap<>();
-    private static Logger log = Logger.getLogger(CommandProvider.class.getName());
 
     CommandProvider(){
         repository.put(CommandName.SIGN_IN, new SignIn());
@@ -33,7 +30,6 @@ public class CommandProvider {
         commandName = CommandName.valueOf(name.toUpperCase());
         command = repository.get(commandName);
         } catch (IllegalArgumentException | NullPointerException e){
-            log.log(Level.SEVERE, "Exception: ", e);
             command = repository.get(CommandName.WRONG_REQUEST);
         }
         return command;

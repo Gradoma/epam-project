@@ -38,6 +38,10 @@ public class User implements Serializable {
         this.password = password;
     }
 
+    public void setRole(Role role){
+        this.role = role;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -29,17 +29,21 @@ public class GetRecInPeriod implements Command {
                 ServiceFactory serviceFactory = ServiceFactory.getInstance();
                 RecordService recordService = serviceFactory.getRecordService();
                 List<Record> recordList = recordService.getUserRecordsInPeriod(date1, date2);
-                if(recordList.size() == 0){
-                    response = "No records during specified period.";
-                } else {
+                if(recordList.size() > 0){
+                    StringBuilder responseBuilder = new StringBuilder();
+                    String spaceDelim = " ";
                     for(Record rec : recordList){
                         String valueSign = "";
                         if(rec.getOperationValue() > 0){
                             valueSign = "+";
                         }
-                        response += rec.getUserLogin() + " " + DATE_FORMAT.format(rec.getDate()) + " " +
-                                valueSign + rec.getOperationValue() + " " + rec.getDescription()+ "\n";
+                        responseBuilder.append(rec.getUserLogin()).append(spaceDelim).append(DATE_FORMAT.format(rec.getDate()));
+                        responseBuilder.append(spaceDelim).append(valueSign).append(rec.getOperationValue());
+                        responseBuilder.append(spaceDelim).append(rec.getDescription()).append("\n");
                     }
+                    response = responseBuilder.toString();
+                } else {
+                    response = "No records during specified period.";
                 }
             } catch (ParseException ex){
                 //write log

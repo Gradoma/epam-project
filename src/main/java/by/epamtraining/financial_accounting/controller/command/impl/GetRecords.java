@@ -21,14 +21,18 @@ public class GetRecords implements Command {
         try {
             List<Record> recordList = recordService.getUserRecords();
             if(recordList.size() > 0){
+                StringBuilder responseBuilder = new StringBuilder();
+                String spaceDelim = " ";
                 for(Record rec : recordList){
                     String valueSign = "";
                     if(rec.getOperationValue() > 0){
                         valueSign = "+";
                     }
-                    response += rec.getUserLogin() + " " + DATE_FORMAT.format(rec.getDate()) + " " +
-                            valueSign + rec.getOperationValue() + " " + rec.getDescription()+ "\n";
+                    responseBuilder.append(rec.getUserLogin()).append(spaceDelim).append(DATE_FORMAT.format(rec.getDate()));
+                    responseBuilder.append(spaceDelim).append(valueSign).append(rec.getOperationValue());
+                    responseBuilder.append(spaceDelim).append(rec.getDescription()).append("\n");
                 }
+                response = responseBuilder.toString();
             } else {
                 response = "You have no records.";
             }

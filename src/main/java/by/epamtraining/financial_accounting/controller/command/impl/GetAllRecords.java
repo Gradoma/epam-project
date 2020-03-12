@@ -23,20 +23,24 @@ public class GetAllRecords implements Command {
         try {
             List<Record> allRecordsList = recordService.getAllRecords();
             if(allRecordsList.size() > 0){
+                StringBuilder responseBuilder = new StringBuilder();
+                String spaceDelim = " ";
                 for(Record rec : allRecordsList){
                     String valueSign = "";
                     if(rec.getOperationValue() > 0){
                         valueSign = "+";
                     }
-                    response += rec.getUserLogin() + " " + DATE_FORMAT.format(rec.getDate()) + " " + valueSign +
-                            rec.getOperationValue() + " " + rec.getDescription()+ "\n";
+                    responseBuilder.append(rec.getUserLogin()).append(spaceDelim).append(DATE_FORMAT.format(rec.getDate()));
+                    responseBuilder.append(spaceDelim).append(valueSign).append(rec.getOperationValue());
+                    responseBuilder.append(spaceDelim).append(rec.getDescription()).append("\n");
                 }
+                response = responseBuilder.toString();
             } else {
                 response = "No any records.";
             }
         } catch (ServiceException servEx){
             //write log
-            response = "Error during get records procedure: " + servEx.getMessage();
+            response = "Error during get all records procedure: " + servEx.getMessage();
         }
         return response;
     }

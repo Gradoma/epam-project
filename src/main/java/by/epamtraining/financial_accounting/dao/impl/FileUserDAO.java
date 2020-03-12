@@ -1,6 +1,5 @@
 package by.epamtraining.financial_accounting.dao.impl;
 
-import by.epamtraining.financial_accounting.bean.Role;
 import by.epamtraining.financial_accounting.bean.User;
 import by.epamtraining.financial_accounting.dao.UserDAO;
 import by.epamtraining.financial_accounting.dao.exception.DAOException;
@@ -17,12 +16,9 @@ public class FileUserDAO implements UserDAO {
         if(username == null || username.isEmpty()){
             throw new DAOException("Null parameter username");
         }
-        HashMap<String, String> usersMap = pullUsersMap();
+        HashMap<String, User> usersMap = pullUsersMap();
         if (usersMap.containsKey(username)) {
-            User user = new User(username, usersMap.get(username));
-            if(user.getLogin().equals("admin")){
-                user.setRole(Role.ADMIN);
-            }
+            User user = usersMap.get(username);
             return user;
         } else return null;
     }
@@ -31,29 +27,29 @@ public class FileUserDAO implements UserDAO {
         if(user == null){
             throw new DAOValidationException("Null reference to User object");
         } else {
-            HashMap<String, String> usersMap = pullUsersMap();
+            HashMap<String, User> usersMap = pullUsersMap();
             if (usersMap.containsKey(user.getLogin())) {
                 throw new DAONonuniqueValueException("User with this login already exists");
             }
-            usersMap.put(user.getLogin(), user.getPassword());
+            usersMap.put(user.getLogin(), user);
             pushUsersMap(usersMap);
         }
     }
 
-    private HashMap<String, String> pullUsersMap() throws DAOException{
+    private HashMap<String, User> pullUsersMap() throws DAOException{
         try (InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("UserFile.txt")) {
             ObjectInput oi = new ObjectInputStream(inputStream);
-            HashMap<String, String> usersMap = (HashMap<String, String>) oi.readObject();
+            HashMap<String, User> usersMap = (HashMap<String, User>) oi.readObject();
             oi.close();
             return usersMap;
         } catch (EOFException e1){
-            return new HashMap<String, String>();
+            return new HashMap<String, User>();
         } catch (Exception e) {
             throw new DAOException(e);
         }
     }
 
-    private void pushUsersMap(HashMap<String, String> updatedUsers) throws DAOException{
+    private void pushUsersMap(HashMap<String, User> updatedUsers) throws DAOException{
         File file;
         try {
             file = Path.of(this.getClass().getClassLoader().getResource("UserFile.txt").toURI()).toFile();
@@ -67,6 +63,5 @@ public class FileUserDAO implements UserDAO {
         } catch (Exception e){
             throw new DAOException(e);
         }
-
     }
 }

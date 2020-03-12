@@ -5,9 +5,9 @@ import java.io.Serializable;
 public class User implements Serializable {
     private String login;
     private String password;
-    private Role role = Role.USER;
+    private Role role;
 
-    public User(){
+    private User(){
         login = null;
         password = null;
     }
@@ -15,18 +15,11 @@ public class User implements Serializable {
     public User(String login, String password){
         this.login = login;
         this.password = password;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
+        this.role = Role.USER;
     }
 
     public String getLogin() {
         return login;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getPassword() {
@@ -37,8 +30,12 @@ public class User implements Serializable {
         return role;
     }
 
-    public void setRole(Role role){
-        this.role = role;
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override

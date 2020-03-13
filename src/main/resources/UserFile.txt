@@ -1,3 +1,2 @@
 ¨Ì sr java.util.HashMap⁄¡√`— F
-loadFactorI 	thresholdxp?@     w      t user2sr .by.epamtraining.financial_accounting.bean.UserÂ:ÛR¶HÅÑ L logint Ljava/lang/String;L passwordq ~ L rolet 0Lby/epamtraining/financial_accounting/bean/Role;xpq ~ t 123~r .by.epamtraining.financial_accounting.bean.Role          xr java.lang.Enum          xpt USERt adminsq ~ q ~ q ~ ~q ~ t ADMINt testusersq ~ q ~ t testq ~
-x
+loadFactorI 	thresholdxp?@     w      t adminsr .by.epamtraining.financial_accounting.bean.User        L logint Ljava/lang/String;L passwordq ~ L rolet 0Lby/epamtraining/financial_accounting/bean/Role;xpq ~ q ~ ~r .by.epamtraining.financial_accounting.bean.Role          xr java.lang.Enum          xpt ADMINx

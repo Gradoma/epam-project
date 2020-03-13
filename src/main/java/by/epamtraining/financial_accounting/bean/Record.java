@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Record implements Serializable {
+    private static final long serialVersionUID = 2L;
     private String userLogin;
     private double operationValue;
     private Date date;

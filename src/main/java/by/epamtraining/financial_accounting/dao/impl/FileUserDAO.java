@@ -14,7 +14,7 @@ public class FileUserDAO implements UserDAO {
 
     public User findByUserName(String username) throws DAOException {
         if(username == null || username.isEmpty()){
-            throw new DAOException("Null parameter username");
+            throw new DAOValidationException("Null reference to String username");
         }
         HashMap<String, User> usersMap = pullUsersMap();
         if (usersMap.containsKey(username)) {

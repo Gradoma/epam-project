@@ -1,3 +1,2 @@
-¬í sr java.util.ArrayListxÒ™Ça I sizexp   w   sr 0by.epamtraining.financial_accounting.bean.Recordà@Ô×W‰Ì D operationValueL datet Ljava/util/Date;L descriptiont Ljava/lang/String;L 	userLoginq ~ xp@i      sr java.util.DatehjKYt  xpw  pE€H€xt Incomet testusersq ~ À8€     sq ~ w  p¶Ì0€xt Flowerst testusersq ~ ÀC`     sq ~ w  pËe €xt 	Transportt testusersq ~ À333333sq ~ w  pÎpØxt
-Non-specifiedt testusersq ~ @uà     sq ~ w  pÁè€xt Incomet user2sq ~ À.€     sq ~ w  pËe €xt Foodt user2sq ~ À"³33333sq ~ w  pÎWäxt
-Non-specifiedt user2x
+¬í sr java.util.ArrayListxÒ™Ça I sizexp   w   sr 0by.epamtraining.financial_accounting.bean.Record        D operationValueL datet Ljava/util/Date;L descriptiont Ljava/lang/String;L 	userLoginq ~ xp@uà     sr java.util.DatehjKYt  xpw  pE€H€xt Incomet adminsq ~ À9ŒÌÌÌÌÍsq ~ w  p¶Ì0€xt Presentst adminsq ~ À)€     sq ~ w  p¶Ì0€xt Flowerst adminsq ~ À8€     sq ~ w  pÁè€xt 	Transportt adminsq ~ Àffffffsq ~ w  pËe €xt
+Non-specifiedt adminx
